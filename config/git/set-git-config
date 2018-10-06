@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+GIT_USER_EMAIL="$1"
+GIT_USER_NAME="$2"
+
+if [ "$GIT_USER_EMAIL" != "" ]; then
+    git config --global user.email "$GIT_USER_EMAIL"
+    echo "Defined global git user email to: $GIT_USER_EMAIL"
+fi
+
+if [ "$GIT_USER_NAME" != "" ]; then
+    git config --global user.name "$GIT_USER_NAME"
+    echo "Defined global git user name to: $GIT_USER_NAME"
+fi
