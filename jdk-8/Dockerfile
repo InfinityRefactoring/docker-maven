@@ -22,7 +22,7 @@ ARG SCRIPT_ENTRYPOINT="https://raw.githubusercontent.com/InfinityRefactoring/doc
 ADD $SCRIPT_ENTRYPOINT /usr/local/bin/
 
 ARG IVG="https://github.com/InfinityRefactoring/infinity-version-generator/archive/master.zip"
-RUN wget "$IVG" -O /tmp/ivg.zip unzip; \
+RUN wget "$IVG" -O /tmp/ivg.zip; \
       unzip /tmp/ivg.zip -d /root/InfinityRefactoring; \
       rm /tmp/ivg.zip; \
       mv /root/InfinityRefactoring/infinity-version-generator-master /root/InfinityRefactoring/infinity-version-generator

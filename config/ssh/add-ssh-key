@@ -4,10 +4,10 @@ set -e
 
 SSH_PUBLIC_KEY="$1"
 SSH_PRIVATE_KEY="$2"
-SSH_ID=${3:-"~/.ssh/id_rsa"}
+SSH_ID=${3:-"$HOME/.ssh/id_rsa"}
 SSH_HOST="$4"
 SSH_USER="$5"
-SSH_CONFIG_FILE=${6:-"~/.ssh/config"}
+SSH_CONFIG_FILE=${6:-"$HOME/.ssh/config"}
 
 if [ "$SSH_PUBLIC_KEY" != "" ] || [ "$SSH_PRIVATE_KEY" != "" ]; then
 
