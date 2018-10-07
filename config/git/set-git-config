@@ -4,13 +4,19 @@ set -e
 
 GIT_USER_EMAIL="$1"
 GIT_USER_NAME="$2"
+GIT_PUSH_DEFAULT=${3:-"simple"}
 
 if [ "$GIT_USER_EMAIL" != "" ]; then
     git config --global user.email "$GIT_USER_EMAIL"
-    echo "Defined global git user email to: $GIT_USER_EMAIL"
+    echo "The global git user email has been configured"
 fi
 
 if [ "$GIT_USER_NAME" != "" ]; then
     git config --global user.name "$GIT_USER_NAME"
-    echo "Defined global git user name to: $GIT_USER_NAME"
+    echo "The global git user name has been configured"
+fi
+
+if [ "$GIT_PUSH_DEFAULT" != "" ]; then
+    git config --global push.default "$GIT_PUSH_DEFAULT"
+    echo "The global git push default has been configured"
 fi
