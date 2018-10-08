@@ -18,6 +18,9 @@ ADD $SCRIPT_GIT_CONFIG /usr/local/bin/
 ARG SCRIPT_ADD_SSH_KEY="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/ssh/add-ssh-key"
 ADD $SCRIPT_ADD_SSH_KEY /usr/local/bin/
 
+ARG SCRIPT_IMPORT_GPG_KEY="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/.m2/import-gpg-key"
+ADD $SCRIPT_IMPORT_GPG_KEY /usr/local/bin/
+
 ARG SCRIPT_ENTRYPOINT="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/docker-entrypoint"
 ADD $SCRIPT_ENTRYPOINT /usr/local/bin/
 
@@ -29,6 +32,10 @@ RUN wget "$IVG" -O /tmp/ivg.zip; \
 
 ENV PATH="/root/InfinityRefactoring/infinity-version-generator:$PATH"
 
-RUN ["chmod", "+x", "/usr/local/bin/docker-entrypoint", "/usr/local/bin/add-ssh-key", "/usr/local/bin/set-git-config", "/root/InfinityRefactoring/infinity-version-generator/ivg"]
+RUN chmod +x /usr/local/bin/docker-entrypoint \
+      /usr/local/bin/set-git-config \
+      /usr/local/bin/add-ssh-key \
+      /usr/local/bin/import-gpg-key \
+      /root/InfinityRefactoring/infinity-version-generator/ivg
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]

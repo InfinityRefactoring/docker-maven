@@ -2,8 +2,10 @@
 
 set -e
 
-source /usr/local/bin/set-git-config "$GIT_USER_EMAIL" "$GIT_USER_NAME" "$GIT_PUSH_DEFAULT"
+set-git-config "$GIT_USER_EMAIL" "$GIT_USER_NAME" "$GIT_PUSH_DEFAULT"
 
-source /usr/local/bin/add-ssh-key "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY" "$SSH_ID" "$SSH_HOST" "$SSH_USER" "$SSH_CONFIG_FILE"
+add-ssh-key "$SSH_PUBLIC_KEY" "$SSH_PRIVATE_KEY" "$SSH_ID" "$SSH_HOST" "$SSH_USER" "$SSH_CONFIG_FILE"
+
+import-gpg-key "$MAVEN_GPG_PASSPHRASE" "$MAVEN_GPG_KEY_VALUE"  
 
 exec "$@"
