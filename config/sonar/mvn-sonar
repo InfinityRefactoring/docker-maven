@@ -1,0 +1,27 @@
+ #!/bin/bash
+
+if [ "$SONAR_PROJECT_KEY" != "" ]; then
+    SONAR_OPTIONS="$SONAR_OPTIONS -Dsonar.projectKey=$SONAR_PROJECT_KEY"
+fi
+
+if [ "$SONAR_ORGANIZATION" != "" ]; then
+    SONAR_OPTIONS="$SONAR_OPTIONS -Dsonar.organization=$SONAR_ORGANIZATION"
+fi
+
+if [ "$SONAR_HOST_URL" != "" ]; then
+    SONAR_OPTIONS="$SONAR_OPTIONS -Dsonar.host.url=$SONAR_HOST_URL"
+fi
+
+if [ "$SONAR_LOGIN" != "" ]; then
+    SONAR_OPTIONS="$SONAR_OPTIONS -Dsonar.login=$SONAR_LOGIN"
+fi
+
+if [ "$SONAR_BRANCH_NAME" != "" ]; then
+    SONAR_OPTIONS="$SONAR_OPTIONS -Dsonar.branch.name=$SONAR_BRANCH_NAME"
+
+    if [ "$SONAR_TARGET_BRANCH_NAME" == "" ]; then
+        SONAR_OPTIONS="$SONAR_OPTIONS -Dsonar.branch.target=$(get-target-branch $SONAR_BRANCH_NAME)"
+    fi
+fi
+
+mvn verify sonar:sonar $SONAR_OPTIONS

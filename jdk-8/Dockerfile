@@ -9,6 +9,9 @@ RUN apt-get update \
       && apt-get install gnupg2 \
       && apt-get install git
 
+ARG SCRIPT_ENTRYPOINT="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/docker-entrypoint"
+ADD $SCRIPT_ENTRYPOINT /usr/local/bin/
+
 ARG MAVEN_SETTINGS_XML="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/.m2/settings.xml"
 ADD $MAVEN_SETTINGS_XML /root/.m2/
 
@@ -21,8 +24,11 @@ ADD $SCRIPT_ADD_SSH_KEY /usr/local/bin/
 ARG SCRIPT_IMPORT_GPG_KEY="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/.m2/import-gpg-key"
 ADD $SCRIPT_IMPORT_GPG_KEY /usr/local/bin/
 
-ARG SCRIPT_ENTRYPOINT="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/docker-entrypoint"
-ADD $SCRIPT_ENTRYPOINT /usr/local/bin/
+ARG SCRIPT_GET_TARGET_BRANCH="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/git/get-target-branch"
+ADD $SCRIPT_GET_TARGET_BRANCH /usr/local/bin/
+
+ARG SCRIPT_MVN_SONAR="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/sonar/mvn-sonar"
+ADD $SCRIPT_MVN_SONAR /usr/local/bin/
 
 ARG IVG="https://github.com/InfinityRefactoring/infinity-version-generator/archive/master.zip"
 RUN wget "$IVG" -O /tmp/ivg.zip; \
@@ -36,6 +42,8 @@ RUN chmod +x /usr/local/bin/docker-entrypoint \
       /usr/local/bin/set-git-config \
       /usr/local/bin/add-ssh-key \
       /usr/local/bin/import-gpg-key \
+      /usr/local/bin/get-target-branch \
+      /usr/local/bin/mvn-sonar \
       /root/InfinityRefactoring/infinity-version-generator/ivg
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
