@@ -1,6 +1,8 @@
 #!/bin/bash
 
-MAVEN_GPG_PASSPHRASE="$1"
-MAVEN_GPG_KEY_VALUE="$2"
+GPG_PASSPHRASE="$1"
+GPG_KEY_VALUE="$2"
 
-gpg2 --import --batch --passphrase "$MAVEN_GPG_PASSPHRASE" <<< "$MAVEN_GPG_KEY_VALUE"
+if [ "$GPG_KEY_VALUE" != "" ]; then
+    gpg2 --import --batch --passphrase "$GPG_PASSPHRASE" <<< "$GPG_KEY_VALUE"
+fi
