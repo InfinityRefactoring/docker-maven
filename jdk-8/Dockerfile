@@ -9,9 +9,6 @@ RUN apt-get update \
       && apt-get install gnupg2 \
       && apt-get install git
 
-ARG SCRIPT_ENTRYPOINT="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/docker-entrypoint"
-ADD $SCRIPT_ENTRYPOINT /usr/local/bin/
-
 ARG MAVEN_SETTINGS_XML="https://raw.githubusercontent.com/InfinityRefactoring/docker-maven/master/config/.m2/settings.xml"
 ADD $MAVEN_SETTINGS_XML /root/.m2/
 
@@ -38,12 +35,10 @@ RUN wget "$IVG" -O /tmp/ivg.zip; \
 
 ENV PATH="/root/InfinityRefactoring/infinity-version-generator:$PATH"
 
-RUN chmod +x /usr/local/bin/docker-entrypoint \
+RUN chmod +x \
       /usr/local/bin/set-git-config \
       /usr/local/bin/add-ssh-key \
       /usr/local/bin/import-gpg-key \
       /usr/local/bin/get-target-branch \
       /usr/local/bin/mvn-sonar \
       /root/InfinityRefactoring/infinity-version-generator/ivg
-
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint"]
